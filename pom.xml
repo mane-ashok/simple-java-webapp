@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>org.ashok</groupId>
+  <artifactId>simple-java-webapp</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <packaging>jar</packaging>
+  
+  <properties>
+	  <maven.compiler.source>17</maven.compiler.source>
+	  <maven.compiler.target>17</maven.compiler.target>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+	  <!--embedded tomcat container-->
+	  <dependency>
+		  <groupId>org.apache.tomcat.embed</groupId>
+		  <artifactId>tomcat-embed-core</artifactId>
+		  <version>9.0.54</version>
+	  </dependency>
+	  
+	  
+	  
+	  
+  </dependencies>
+  
+  <build>
+	  
+	<plugins>
+		
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>3.8.1</version>
+			
+		</plugin>
+		  
+	
+	<!-- Maven JAR plugin -
+	  Maven Jar plugin is responsible for configuring where the project's main class is so it can add it to the Jar's manifest file
+	  That way when you run the jar file, it will execute the main class registered in manifest file.
+	  -->
+	<!--    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-jar-plugin</artifactId>
+			<version>3.3.0</version>
+			
+			<configuration>
+				<archive>
+					
+					<manifest>
+						<mainClass>org.ashok.launcher.AppLauncher</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
+	-->
+	  
+	 <!-- Maven shade plugin
+	   The plugin provides the capability to package the artifact in an uber-jar, including its dependencies as a single jar
+	   and to shade - i.e. rename the packages of some of the dependencies.
+	   it is easy for execution, because you will need only one BIG JAR instead of tons of small Jars to run your App.
+	   This plugin has a single goal: shade:shade and is bound to the package phase to create shaded jar
+	   
+	   The shade plugin will essentially unzip every 3rd party library and put it into your .jar file. 
+	   If a third-party library comes with a manifest.mf file, there’s potentially n-manifest files 
+	   going into your .jar file, overwriting each other.If you specify the main class here, the shade plugin 
+	   will make sure that your final manifest file will have the correct class specified.
+	   
+	   Above Jar plugin is no more required, so lets comment it.
+	 --> 
+	    <plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-shade-plugin</artifactId>
+			<version>3.4.1</version>
+			
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>shade</goal>
+					</goals>
+					<configuration>
+						<transformers>
+							<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+								<mainClass>org.ashok.launcher.AppLauncher</mainClass>
+							</transformer>
+							
+						</transformers>
+					</configuration>
+					
+				</execution>
+			</executions>
+			
+		</plugin>
+	  
+	</plugins>  
+	  
+  </build>
+  
+  
+</project>
